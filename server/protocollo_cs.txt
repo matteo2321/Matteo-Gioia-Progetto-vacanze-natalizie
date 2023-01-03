@@ -1,5 +1,5 @@
 per ora è 
-
+c ---> s
 
    flag(o-1);xracchettina;yracchettina;xpallina;ypallina;velocità
 
@@ -9,3 +9,13 @@ per ora è
 
 
 potremmo aggiungere la velocita del dischetto in risosta 1 -- per fare il controllo se è fattibile mi devi dire un valore please realistico
+
+
+
+s---> controllo
+
+risposta:
+flag;xracchettina;yracchettina;xpallina;ypallina;velocità
+
+in base al flag riinoltro le info che ho 
+Ti servono tutte o la velocità è inutile?? dimmi
