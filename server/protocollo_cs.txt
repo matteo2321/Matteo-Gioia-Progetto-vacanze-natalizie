@@ -19,3 +19,7 @@ flag;xracchettina;yracchettina;xpallina;ypallina;velocità
 
 in base al flag riinoltro le info che ho 
 Ti servono tutte o la velocità è inutile?? dimmi
+
+
+in caso di velocità troppo alta per essere reale 
+risposta[0] = "errore vel non reale";

@@ -32,9 +32,13 @@ public class clientThread extends Thread {
                 }
                 else if(campo[0]==1){
                     msg[0] = 1;
+                    if(campo[5]<500/*volocità massima reale ipotetica per evitare cheating */){
                     for (int i = 1; i < 5; i++) {
                         risposta[i] = msg[i];
-                    }
+
+                    }}
+                    else 
+                        risposta[0] = "errore vel non reale";
                 }
                 //0/1;xr;yr;xp;yp
                // risposta 0= risp normale solo coordinate
