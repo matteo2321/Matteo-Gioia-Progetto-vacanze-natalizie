@@ -26,3 +26,8 @@ nella seconda si utilizzano messaggi per passare coordinate e booleani(collision
                  * 
                  * }
                  */
+
+
+
+nella prima parte il client invia un messaggio al server, il server risponde con un ack così
+host-->*ipclient*:*portaclient*-->confirmed

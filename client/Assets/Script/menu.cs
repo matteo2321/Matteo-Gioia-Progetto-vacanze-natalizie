@@ -12,11 +12,20 @@ using System.IO.Pipes;
 using System.IO;
 using System.Text;
 using System.Runtime.InteropServices.ComTypes;
+using System.Net;
 
 public class menu : MonoBehaviour
 {
-    string ip;
-    string port;
+    //variabili statiche 
+    public static TcpClient tcpClient { get; set; }
+    public static string ip { get; set; }
+    public static string port { get; set; }
+    public static NetworkStream networkStream { get; set; }
+    public static StreamReader reader { get; set; }
+    public static StreamWriter writer { get; set; }
+    public static IPEndPoint ipEndPoint { get; set; }
+
+    //variabili locali alla scena
     public GameObject inputFieldIp;
     public GameObject inputFieldPort;
     public GameObject connection_switch_color;
@@ -44,38 +53,41 @@ public class menu : MonoBehaviour
 
     public void tryConnect()
     {
-        Bt_Play.SetActive(IsConnected);
-        TcpClient tcpClient = new TcpClient();
         ip = inputFieldIp.GetComponent<TMP_Text>().text;
         port = inputFieldPort.GetComponent<TMP_Text>().text;
+        long _ip;
+        long.TryParse(ip, out _ip);
+        int _port;
+        int.TryParse(port, out _port);
+        IPEndPoint ipEndPoint = new IPEndPoint(_ip, _port);
+
+
+        menu.tcpClient = new TcpClient(ipEndPoint);
+
         try
         {
-            int a = 0;
-            int.TryParse(port, out a);
-            NetworkStream networkStream = tcpClient.GetStream();
-            StreamReader reader = new StreamReader(networkStream, Encoding.UTF8);
-            StreamWriter writer = new StreamWriter(networkStream, Encoding.UTF8);
+            menu.networkStream = tcpClient.GetStream();
+            menu.reader = new StreamReader(networkStream, Encoding.UTF8);
+            menu.writer = new StreamWriter(networkStream, Encoding.UTF8);
 
             //il tcp client si connette con ip e porta al server
             //invia il suo ip e la sua porta per farsi riconoscere 
-            tcpClient.Connect(ip, a);
-            string messagge = "host: " + ip + ":" + port + "-->" + "avaible";
-
-
-
-
+            tcpClient.Connect(ipEndPoint);
+            string messagge = "host--> " + ip + ":" + port + "-->" + "avaible";
             byte[] buffer = Encoding.UTF8.GetBytes(messagge);
             networkStream.Write(buffer, 0, buffer.Length);
+
+
 
             buffer = new Byte[256];
 
             String responseData = String.Empty;
 
-            // Read the first batch of the TcpServer response bytes.
+            
             Int32 bytes = networkStream.Read(buffer, 0, buffer.Length);
             responseData = System.Text.Encoding.UTF8.GetString(buffer, 0, bytes);
 
-            if (responseData != null && responseData == "accepted")
+            if (responseData != null && responseData == "host-->" + ip + ":" + port + "-->confirmed")
             {
                 connection_switch_color.GetComponent<Image>().color = new Color(0, 255, 0, 255);
                 IsConnected = true;
@@ -88,13 +100,53 @@ public class menu : MonoBehaviour
     }
 
 
+    public async void AsyncTryConnect()//metodo try connnect asyncrono
+    {
+        ip = inputFieldIp.GetComponent<TMP_Text>().text;
+        port = inputFieldPort.GetComponent<TMP_Text>().text;
+        long _ip;
+        long.TryParse(ip, out _ip);
+        int _port;
+        int.TryParse(port, out _port);
+        IPEndPoint ipEndPoint = new IPEndPoint(_ip, _port);
+
+
+        Socket client = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        
+        
+        await client.ConnectAsync(ipEndPoint);
+
+        //invio messaggio di host avaible
+        string messagge = "host--> " + ip + ":" + port + "-->" + "avaible";
+        byte[] byteMessagge = Encoding.UTF8.GetBytes(messagge);
+        await client.SendAsync(byteMessagge, SocketFlags.None);
+
+        //ricevo ack
+        byte[] buffer = new byte[1024];
+        string response = Encoding.UTF8.GetString(buffer, 0,await client.ReceiveAsync(buffer, SocketFlags.None));
+
+        if(response== "host-->"+ip+":"+port+"-->confirmed")
+        {
+            connection_switch_color.GetComponent<Image>().color = new Color(0, 255, 0, 255);
+            IsConnected = true;
+        }                                                 
+
+    
+
+
+
+
+
+    }
+
+
 
     public void play()
     {
-        if (connection_switch_color.GetComponent<Image>().color == new Color(0,255,0,255) && IsConnected==true)//controlla che il segnaletto sia verde quindi che ci sia la connessione 
-        {
+        //if (connection_switch_color.GetComponent<Image>().color == new Color(0,255,0,255) && IsConnected==true)//controlla che il segnaletto sia verde quindi che ci sia la connessione 
+        //{
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
+       // }
     }
 
     public void exit()
