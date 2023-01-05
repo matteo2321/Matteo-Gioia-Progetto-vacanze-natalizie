@@ -32,19 +32,21 @@ public class clientThread extends Thread {
                 }
                 else if(campo[0]==1){
                     msg[0] = 1;
-                    if(campo[5]<500/*volocità massima reale ipotetica per evitare cheating */){
+                    //if(campo[5]<500/*volocità massima reale ipotetica per evitare cheating */){
                     for (int i = 1; i < 5; i++) {
                         risposta[i] = msg[i];
 
-                    }}
-                    else 
-                        risposta[0] = "errore vel non reale";
+                    }//}
+                    //else 
+                      //  risposta[0] = "errore vel non reale";
+                      //per il momento verifichiam vada senza check velocità poi accerteremo in un secondo momento che il giocatore non stia manomettendo il gioco.
+                      //controllo velocità e magari controllo "collisione effettuata"
                 }
                 //0/1;xr;yr;xp;yp
                // risposta 0= risp normale solo coordinate
                //risosta 1= risp evento coordinate racchettina(x;y) + pallina(x;y)
 
-                /*
+                /* 1 versione :scartata
                  * if (msg[0] == 1) {
                  * risposta[i] = msg[1];
                  * i++;

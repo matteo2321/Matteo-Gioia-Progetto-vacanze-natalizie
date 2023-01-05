@@ -24,3 +24,40 @@ Ti servono tutte o la velocità è inutile?? dimmi
 per ora eviterei le velocità, finiamolo alla svelta entro gennaio poi se ci chiede altro pensiamo alle velocità
 
 ho aggiunto anche io un file di protocollo nella dir precedente
+
+
+//di nuovo
+
+per ora è 
+c ---> s
+
+   flag(o-1);xracchettina;yracchettina;xpallina;ypallina;velocità
+
+
+               // risposta 0= risp normale solo coordinate
+               //risosta 1= risp evento coordinate racchettina(x;y) + pallina(x;y)
+
+
+in caso di velocità troppo alta per essere reale 
+risposta[0] = "errore vel non reale";
+=======potremmo aggiungere la velocita del dischetto in risosta 1 -- per fare il controllo se è fattibile mi devi dire un valore please realistico
+
+
+
+s---> controllo
+
+risposta:
+flag;xracchettina;yracchettina;xpallina;ypallina;velocità
+
+in base al flag riinoltro le info che ho 
+Ti servono tutte o la velocità è inutile?? dimmi
+
+
+<<<<<<< HEAD
+
+per ora eviterei le velocità, finiamolo alla svelta entro gennaio poi se ci chiede altro pensiamo alle velocità
+
+ho aggiunto anche io un file di protocollo nella dir precedente
+>>>>>>> ee35f0900ad9bd789b86f4219cd487a538dcff48
+
+
