@@ -1,0 +1,33 @@
+il programma si divide in due parti:
+	-il collegamento delle tre parti(host 1, host 2, server) e cambio di scena al gioco 
+	-il gioco
+nella prima parte non si utilizza praticamente nessun messaggio
+nella seconda si utilizzano messaggi per passare coordinate e booleani(collisioni) secondo un codice preciso:
+ //0/1;xr;yr;xp;yp
+               //risposta 0= risp normale solo coordinate
+               //risosta 1= risp evento coordinate racchettina(x;y) + pallina(x;y)
+
+                /*
+                 * if (msg[0] == 1) {
+                 * risposta[i] = msg[1];
+                 * i++;
+                 * risposta[i] = msg[2];
+                 * }
+                 * else if(msg[0] == 2)
+                 * {
+                 * risposta[i] = msg[1];
+                 * i++;
+                 * risposta[i] = msg[2];
+                 * i++;
+                 * risposta[i] = msg[1];
+                 * i++;
+                 * risposta[i] = msg[2];
+                 * 
+                 * 
+                 * }
+                 */
+
+
+
+nella prima parte il client invia un messaggio al server, il server risponde con un ack così
+host-->*ipclient*:*portaclient*-->confirmed
