@@ -6,4 +6,5 @@
       il server decida quando "utilizzare" le coordinate del client 1 della pallina o quando "utilizzare" quelle del client 2
       le coordinate della pallina e del player avversario vanno specchiate
       
+      
 

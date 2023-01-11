@@ -53,6 +53,7 @@ public class menu : MonoBehaviour
 
     public void tryConnect()
     {
+
         ip = inputFieldIp.GetComponent<TMP_Text>().text;
         port = inputFieldPort.GetComponent<TMP_Text>().text;
         long _ip;
@@ -60,23 +61,32 @@ public class menu : MonoBehaviour
         int _port;
         int.TryParse(port, out _port);
         IPEndPoint ipEndPoint = new IPEndPoint(_ip, _port);
+        Debug.Log(ip);
 
 
-        menu.tcpClient = new TcpClient(ipEndPoint);
+        //tcpClient = new TcpClient(ipEndPoint);
+        tcpClient = new TcpClient(ip, _port);
+        networkStream = tcpClient.GetStream();
+        
+        string messagge = "5;ip;port;";//questa è la richiesta 
+        byte[] buffer = Encoding.UTF8.GetBytes(messagge);
+        networkStream.Write(buffer, 0, buffer.Length);
 
-        try
+        /*try
         {
-            menu.networkStream = tcpClient.GetStream();
-            menu.reader = new StreamReader(networkStream, Encoding.UTF8);
-            menu.writer = new StreamWriter(networkStream, Encoding.UTF8);
+            networkStream = tcpClient.GetStream();
+            //menu.reader = new StreamReader(networkStream, Encoding.UTF8);
+            //menu.writer = new StreamWriter(networkStream, Encoding.UTF8);
 
             //il tcp client si connette con ip e porta al server
             //invia il suo ip e la sua porta per farsi riconoscere 
-            tcpClient.Connect(ipEndPoint);
-            string messagge = "host--> " + ip + ":" + port + "-->" + "avaible";
+            Debug.Log("fermo");
+            tcpClient.Connect(ip, _port);
+            Debug.Log("fermo");
+
+            string messagge = "5;ip;port;";//questa è la richiesta 
             byte[] buffer = Encoding.UTF8.GetBytes(messagge);
             networkStream.Write(buffer, 0, buffer.Length);
-
 
 
             buffer = new Byte[256];
@@ -86,9 +96,11 @@ public class menu : MonoBehaviour
             
             Int32 bytes = networkStream.Read(buffer, 0, buffer.Length);
             responseData = System.Text.Encoding.UTF8.GetString(buffer, 0, bytes);
+            Debug.Log(responseData);
 
-            if (responseData != null && responseData == "host-->" + ip + ":" + port + "-->confirmed")
+            if (responseData != null && responseData == "6;ip;port;")
             {
+
                 connection_switch_color.GetComponent<Image>().color = new Color(0, 255, 0, 255);
                 IsConnected = true;
             }
@@ -96,7 +108,7 @@ public class menu : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e.Message);
-        }
+        }*/
     }
 
 
@@ -129,7 +141,12 @@ public class menu : MonoBehaviour
         {
             connection_switch_color.GetComponent<Image>().color = new Color(0, 255, 0, 255);
             IsConnected = true;
-        }                                                 
+        }                         
+        else
+        {
+            connection_switch_color.GetComponent<Image>().color = new Color(255, 0, 0, 255);
+            IsConnected = false;
+        }                        
 
     
 
