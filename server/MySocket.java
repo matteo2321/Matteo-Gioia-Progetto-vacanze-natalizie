@@ -1,4 +1,5 @@
 package server;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -9,27 +10,39 @@ public class MySocket {
     int id;
     Socket socket;
     private PrintWriter out;
-    
-    public MySocket(Socket socket, int id) throws IOException
-    {
-        this. id=id;
-        this.socket=socket;
-        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),true);
-    }
 
-    
+    public MySocket(Socket socket, int id) throws IOException {
+        this.id = id;
+        this.socket = socket;
+        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+    }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj==null) return false;
+        if (obj == null)
+            return false;
 
-        if(! (obj instanceof MySocket)) return false;
+        if (!(obj instanceof MySocket))
+            return false;
 
-        MySocket tmp =(MySocket)obj;
+        MySocket tmp = (MySocket) obj;
         return tmp.id == id;
     }
 
-    public void sendMessage(String message){
+    public void sendMessage(String message) {
         out.println(message);
+    }
+
+    public String getip() {
+        InetAddress address = socket.getInetAddress();
+        String hostIP = address.getHostAddress() ;
+        return hostIP;
+      
+    }
+
+    public String getport() {
+
+        return  Integer.toString(socket.getPort());
+
     }
 }

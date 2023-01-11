@@ -18,23 +18,38 @@ public class clientThread extends Thread {
     @Override
     public void run() {
         risposta = new Byte[n];
+        String r="";
 
         shared inst = shared.getInstance();
         while (true) {
             try {
 
                 String[] msg = in.readLine().split(";");
+                if(campo[0]==5)
+                {
+                    r="host-->"+_socket.getip()+":"+_socket.getport()+"-->confirmed";
+                    //byte[] byteArrray = inputString.getBytes();
+                    risposta = r.getBytes();
+                }
                 if (campo[0] == 0) {
-                    msg[0]=0;
+                    r+="0;";
                     for (int i = 1; i < 3; i++) {
-                        risposta[i] = msg[i];
+                      //  risposta[i] = msg[i];
+                      int foo = Integer.parseInt(msg[i]);
+                      int temp = foo*-1;
+                        r+=temp+";";
+                        risposta = r.getBytes();
                     }
+                    
                 }
                 else if(campo[0]==1){
-                    msg[0] = 1;
+                    r+= "1;";
                     //if(campo[5]<500/*volocità massima reale ipotetica per evitare cheating */){
                     for (int i = 1; i < 5; i++) {
-                        risposta[i] = msg[i];
+                        int foo = Integer.parseInt(msg[i]);
+                        int temp = foo*-1;
+                        r+=temp+";";
+                        risposta = r.getBytes();
 
                     }//}
                     //else 
@@ -42,6 +57,7 @@ public class clientThread extends Thread {
                       //per il momento verifichiam vada senza check velocità poi accerteremo in un secondo momento che il giocatore non stia manomettendo il gioco.
                       //controllo velocità e magari controllo "collisione effettuata"
                 }
+                //5=conferma connessione
                 //0/1;xr;yr;xp;yp
                // risposta 0= risp normale solo coordinate
                //risosta 1= risp evento coordinate racchettina(x;y) + pallina(x;y)

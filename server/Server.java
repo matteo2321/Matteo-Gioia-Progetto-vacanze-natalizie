@@ -18,8 +18,10 @@ public class Server  extends Thread{
         shared inst=shared.getInstance(); // classe per gestire la lista di client (socket)
         while(true) //TODO: gestire la chiusura del server
         {
+            System.out.println("Server in ascolto");
             try {
                 Socket socket = s.accept();
+                System.out.println("Client");
                 MySocket ms= new MySocket(socket, inst.getLengthSocketList());
                 if( inst.addSocket(ms) )        //solo se le ho aggiunte ( ovvero c'era posto ) 
                 {
