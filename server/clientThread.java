@@ -30,7 +30,7 @@ public class clientThread extends Thread {
                      r+="5;";
                     r+="host-->"+_socket.getip()+":"+_socket.getport()+"-->confirmed";
                     //byte[] byteArrray = inputString.getBytes();
-                    risposta = r.getBytes();
+                   // risposta = r.getBytes();
                 }
                 if (campo[0].equals(0)) {
                     r+="0;";
@@ -39,7 +39,7 @@ public class clientThread extends Thread {
                       int foo = Integer.parseInt(campo[i]);
                       int temp = foo*-1;
                         r+=temp+";";
-                        risposta = r.getBytes();
+                        //risposta = r.getBytes();
                     }
                     
                 }
@@ -50,7 +50,7 @@ public class clientThread extends Thread {
                         int foo = Integer.parseInt(campo[i]);
                         int temp = foo*-1;
                         r+=temp+";";
-                        risposta = r.getBytes();
+                      //  risposta = r.getBytes();
 
                     }//}
                     //else 
@@ -82,12 +82,15 @@ public class clientThread extends Thread {
                  * 
                  * }
                  */
-
+                String[] crisp = in.readLine().split(";");
+                if(crisp[0].equals(5))
+                _socket.sendMessage(r);
+                else{
                // System.out.println(_socket.id + " ha ricevuto : " + str);
                 MySocket destinatario = inst.findDifferentSocketById(_socket.id); // ritorna la socket dell'altro player
                 if (destinatario != null/*&& velocita<100*/)
-                    destinatario.sendMessage(str); // richiamo il metodo di MySocket che scrive sul buffer
-
+                    destinatario.sendMessage(r); // richiamo il metodo di MySocket che scrive sul buffer
+                }
             } catch (IOException e) {
                 // connessione chiusa
                 break; // e vado a rimuovere la socket
