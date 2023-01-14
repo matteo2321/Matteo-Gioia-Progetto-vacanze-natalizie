@@ -17,36 +17,37 @@ public class clientThread extends Thread {
 
     @Override
     public void run() {
-        risposta = new Byte[n];
+        Byte[] risposta = new Byte[50];
         String r="";
 
         shared inst = shared.getInstance();
         while (true) {
             try {
 
-                String[] msg = in.readLine().split(";");
-                if(campo[0]==5)
+                String[] campo = in.readLine().split(";");
+                if(campo[0].equals(5))
                 {
-                    r="host-->"+_socket.getip()+":"+_socket.getport()+"-->confirmed";
+                     r+="5;";
+                    r+="host-->"+_socket.getip()+":"+_socket.getport()+"-->confirmed";
                     //byte[] byteArrray = inputString.getBytes();
                     risposta = r.getBytes();
                 }
-                if (campo[0] == 0) {
+                if (campo[0].equals(0)) {
                     r+="0;";
                     for (int i = 1; i < 3; i++) {
                       //  risposta[i] = msg[i];
-                      int foo = Integer.parseInt(msg[i]);
+                      int foo = Integer.parseInt(campo[i]);
                       int temp = foo*-1;
                         r+=temp+";";
                         risposta = r.getBytes();
                     }
                     
                 }
-                else if(campo[0]==1){
+                else if(campo[0].equals(1)){
                     r+= "1;";
                     //if(campo[5]<500/*volocità massima reale ipotetica per evitare cheating */){
                     for (int i = 1; i < 5; i++) {
-                        int foo = Integer.parseInt(msg[i]);
+                        int foo = Integer.parseInt(campo[i]);
                         int temp = foo*-1;
                         r+=temp+";";
                         risposta = r.getBytes();
