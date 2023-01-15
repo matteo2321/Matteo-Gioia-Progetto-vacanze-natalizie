@@ -17,7 +17,7 @@ public class clientThread extends Thread {
 
     @Override
     public void run() {
-        Byte[] risposta = new Byte[50];
+       // Byte[] risposta = new Byte[50];
         String r="";
 
         shared inst = shared.getInstance();
