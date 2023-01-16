@@ -17,6 +17,7 @@ using System.Net;
 public class menu : MonoBehaviour
 {
     //variabili statiche 
+    public int PORT { get; set; } = 8080;
     public static TcpClient tcpClient { get; set; }
     public static string ip { get; set; }
     public static string port { get; set; }
@@ -53,50 +54,33 @@ public class menu : MonoBehaviour
 
     public void tryConnect()
     {
+       
+            ip = inputFieldIp.GetComponent<TMP_Text>().text;
+            int _port;
+            int.TryParse(port, out _port);
+            Debug.Log(ip);
+            //Debug.Log(_port.ToString());
+            //Debug.Log(port);
 
-        ip = inputFieldIp.GetComponent<TMP_Text>().text;
-        port = inputFieldPort.GetComponent<TMP_Text>().text;
-        long _ip;
-        long.TryParse(ip, out _ip);
-        int _port;
-        int.TryParse(port, out _port);
-        IPEndPoint ipEndPoint = new IPEndPoint(_ip, _port);
-        Debug.Log(ip);
-
-
-        //tcpClient = new TcpClient(ipEndPoint);
-        tcpClient = new TcpClient(ip, _port);
-        networkStream = tcpClient.GetStream();
-        
-        string messagge = "5;ip;port;";//questa è la richiesta 
-        byte[] buffer = Encoding.UTF8.GetBytes(messagge);
-        networkStream.Write(buffer, 0, buffer.Length);
-
-        /*try
-        {
-            networkStream = tcpClient.GetStream();
-            //menu.reader = new StreamReader(networkStream, Encoding.UTF8);
-            //menu.writer = new StreamWriter(networkStream, Encoding.UTF8);
-
-            //il tcp client si connette con ip e porta al server
-            //invia il suo ip e la sua porta per farsi riconoscere 
-            Debug.Log("fermo");
-            tcpClient.Connect(ip, _port);
-            Debug.Log("fermo");
-
+            tcpClient = new TcpClient("192.168.1.85", PORT);
             string messagge = "5;ip;port;";//questa è la richiesta 
-            byte[] buffer = Encoding.UTF8.GetBytes(messagge);
+            Byte[] buffer = Encoding.UTF8.GetBytes(messagge);
+
+            networkStream = tcpClient.GetStream();
             networkStream.Write(buffer, 0, buffer.Length);
+
+            Debug.Log("CLIENT SENT: " + messagge);
 
 
             buffer = new Byte[256];
-
             String responseData = String.Empty;
 
-            
+            // Read the first batch of the TcpServer response bytes.
             Int32 bytes = networkStream.Read(buffer, 0, buffer.Length);
             responseData = System.Text.Encoding.UTF8.GetString(buffer, 0, bytes);
-            Debug.Log(responseData);
+            Debug.Log("CLIENT RECEIVED: " + responseData);
+
+
 
             if (responseData != null && responseData == "6;ip;port;")
             {
@@ -104,11 +88,10 @@ public class menu : MonoBehaviour
                 connection_switch_color.GetComponent<Image>().color = new Color(0, 255, 0, 255);
                 IsConnected = true;
             }
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e.Message);
-        }*/
+
+
+
+
     }
 
 

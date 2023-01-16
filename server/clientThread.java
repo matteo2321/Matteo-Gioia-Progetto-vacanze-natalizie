@@ -3,6 +3,7 @@ package server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class clientThread extends Thread {
 
@@ -23,11 +24,14 @@ public class clientThread extends Thread {
         shared inst = shared.getInstance();
         while (true) {
             try {
+                String s = new String(in.readLine(), StandardCharsets.UTF_8);
+                //QUI C'E' IL PROBLEMA 
+                
 
-                String[] campo = in.readLine().split(";");
+                String[] campo = s.split(";");
                 if(campo[0].equals(5))
                 {
-                     r+="5;";
+                    r+="5;";
                     r+="host-->"+_socket.getip()+":"+_socket.getport()+"-->confirmed";
                     //byte[] byteArrray = inputString.getBytes();
                    // risposta = r.getBytes();
