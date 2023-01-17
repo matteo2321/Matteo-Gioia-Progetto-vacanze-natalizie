@@ -1,7 +1,7 @@
 per ora è 
 c ---> s
 
-   flag(o-1);xracchettina;yracchettina;xpallina;ypallina;velocità
+   flag(0-1);xracchettina;yracchettina;xpallina;ypallina;velocità
 
 
                // risposta 0= risp normale solo coordinate
@@ -59,5 +59,8 @@ per ora eviterei le velocità, finiamolo alla svelta entro gennaio poi se ci chi
 
 ho aggiunto anche io un file di protocollo nella dir precedente
 >>>>>>> ee35f0900ad9bd789b86f4219cd487a538dcff48
+
+
+
 
 
