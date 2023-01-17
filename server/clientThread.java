@@ -2,6 +2,8 @@ package server;
 import java.io.*;
 import java.nio.charset.*;
 
+import javax.swing.plaf.TreeUI;
+
 public class clientThread extends Thread {
 
     MySocket _socket = null;
@@ -53,6 +55,7 @@ public class clientThread extends Thread {
                         for (int i = 1; i < 5; i++) {
                             int foo = Integer.parseInt(campo[i]);
                             int temp = foo*-1;
+                            if(contrllo(campo)==true)
                             r+=temp+";";
                           //  risposta = r.getBytes();
 
@@ -108,5 +111,14 @@ public class clientThread extends Thread {
         }
 
     }
+static  public controllo(int xc1,int xc2,int yc1,int yc2,int r1,int r2){
+boolean temp=false;
+if(xc1+xc2==r1+r2 || yc1+yc2==r1+r2)
+temp=true;
 
+return temp;
+    
 }
+}
+
+
