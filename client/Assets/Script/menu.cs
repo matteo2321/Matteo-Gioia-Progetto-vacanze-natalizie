@@ -54,7 +54,8 @@ public class menu : MonoBehaviour
 
     public void tryConnect()
     {
-       
+        try
+        {
             ip = inputFieldIp.GetComponent<TMP_Text>().text;
             int _port;
             int.TryParse(port, out _port);
@@ -88,6 +89,14 @@ public class menu : MonoBehaviour
                 connection_switch_color.GetComponent<Image>().color = new Color(0, 255, 0, 255);
                 IsConnected = true;
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+            throw;
+        }
+       
+
 
 
 
