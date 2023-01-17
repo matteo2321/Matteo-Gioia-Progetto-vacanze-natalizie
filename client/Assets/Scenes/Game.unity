@@ -353,6 +353,7 @@ GameObject:
   - component: {fileID: 614390941}
   - component: {fileID: 614390940}
   - component: {fileID: 614390939}
+  - component: {fileID: 614390943}
   m_Layer: 0
   m_Name: PlayerLocal
   m_TagString: Untagged
@@ -476,6 +477,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &614390943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614390937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49254e140f21a348ad48d5274b52396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &625594882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,6 +1199,7 @@ MonoBehaviour:
   puck: {fileID: 1209564645}
   PlayerLocal: {fileID: 614390937}
   PlayerOpponent: {fileID: 1154952432}
+  campi: []
 --- !u!1 &2115891351
 GameObject:
   m_ObjectHideFlags: 0
