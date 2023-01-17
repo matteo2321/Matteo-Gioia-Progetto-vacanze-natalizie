@@ -8,6 +8,7 @@ public class clientThread extends Thread {
 
     MySocket _socket = null;
     BufferedReader in;
+    int r1=700,r2=2;
 
     public clientThread(MySocket socket) throws IOException {
         _socket = socket;
@@ -54,8 +55,8 @@ public class clientThread extends Thread {
                         //if(campo[5]<500/*volocità massima reale ipotetica per evitare cheating */){
                         for (int i = 1; i < 5; i++) {
                             int foo = Integer.parseInt(campo[i]);
-                            int temp = foo*-1;
-                            if(contrllo(campo)==true)
+                            int temp = foo*(-1);
+                            if(contrllo(campo[1],campo[3],campo[2],campo[4],r1,r2/*,v */)==true)
                             r+=temp+";";
                           //  risposta = r.getBytes();
 
@@ -111,9 +112,9 @@ public class clientThread extends Thread {
         }
 
     }
-static  public controllo(int xc1,int xc2,int yc1,int yc2,int r1,int r2){
+static  public controllo(int xc1,int xc2,int yc1,int yc2,int r1,int r2,int v){
 boolean temp=false;
-if(xc1+xc2==r1+r2 || yc1+yc2==r1+r2)
+if(xc1+xc2==r1+r2 || yc1+yc2==r1+r2/*||v<200 */)//collisione
 temp=true;
 
 return temp;
