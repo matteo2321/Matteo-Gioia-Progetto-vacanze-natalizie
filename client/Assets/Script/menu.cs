@@ -63,9 +63,12 @@ public class menu : MonoBehaviour
             //Debug.Log(_port.ToString());
             //Debug.Log(port);
 
-            tcpClient = new TcpClient("172.16.102.119", PORT);
-            string messagge = "5;ip;port;";//questa è la richiesta 
+            tcpClient = new TcpClient("172.16.102.120", PORT );
+            //questa è la richiesta 
+            string messagge = "5;172.16.102.120;8080;request;\r\n";
             Byte[] buffer = Encoding.UTF8.GetBytes(messagge);
+
+
 
             networkStream = tcpClient.GetStream();
             networkStream.Write(buffer, 0, buffer.Length);
@@ -73,7 +76,7 @@ public class menu : MonoBehaviour
             Debug.Log("CLIENT SENT: " + messagge);
 
 
-            buffer = new Byte[256];
+            buffer = new Byte[512];
             String responseData = String.Empty;
 
             // Read the first batch of the TcpServer response bytes.
@@ -83,7 +86,7 @@ public class menu : MonoBehaviour
 
 
 
-            if (responseData != null && responseData == "5;ip;port;")
+            if (responseData != null && responseData == "5;172.16.102.120;8080;confirmed")
             {
 
                 connection_switch_color.GetComponent<Image>().color = new Color(0, 255, 0, 255);
