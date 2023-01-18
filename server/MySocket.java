@@ -1,5 +1,6 @@
 package server;
-
+import java.io.*;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -10,11 +11,13 @@ public class MySocket {
     int id;
     Socket socket;
     private PrintWriter out;
+    private BufferedReader in;
 
     public MySocket(Socket socket, int id) throws IOException {
         this.id = id;
         this.socket = socket;
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
     @Override
@@ -44,5 +47,9 @@ public class MySocket {
 
         return  Integer.toString(socket.getPort());
 
+    }
+
+    public BufferedReader getIn(){
+        return in;
     }
 }

@@ -12,7 +12,7 @@ public class clientThread extends Thread {
 
     public clientThread(MySocket socket) throws IOException {
         _socket = socket;
-       in = new BufferedReader(new InputStreamReader(_socket.socket.getInputStream()));
+       in = socket.getIn();
       //  DataInputStream inFromClient = new DataInputStream(_socket.socket.getInputStream());
     }
 
@@ -20,26 +20,27 @@ public class clientThread extends Thread {
     public void run() {
        // Byte[] risposta = new Byte[50];
         String r="";
-        try{
-            shared inst = shared.getInstance();
+           
+            //shared inst = shared.getInstance();
             while (true) {
                 try {
                     //Byte[] messagge=Byte[512];
                     //inFromClient.read(message, 0, message.length); 
                     String s = in.readLine();
                     System.out.println(s);
+
                     //QUI C'E' IL PROBLEMA 
                     //String s = new String(message, StandardCharsets.UTF_8);
 
                     String[] campo = s.split(";");
-                    if(campo[0].equals(5)&&campo[3].equals("request"))
-                    {
+                    if(campo[0].equals("5"))                  {
                         r+="5;";
-                        r+=_socket.getip()+";"+_socket.getport()+";confirmed";
+                        r+=campo[1]+";"+campo[2]+";confirmed;";
+                        System.out.println(r);
                         //byte[] byteArrray = inputString.getBytes();
                        // risposta = r.getBytes();
                     }
-                    if (campo[0].equals(0)) {
+                    if (campo[0].equals("0")) {
                         r+="0;";
                         for (int i = 1; i < 3; i++) {
                           //  risposta[i] = msg[i];
@@ -50,14 +51,14 @@ public class clientThread extends Thread {
                         }
                         
                     }
-                    else if(campo[0].equals(1)){
+                    else if(campo[0].equals("1")){
                         r+= "1;";
                         //if(campo[5]<500/*volocità massima reale ipotetica per evitare cheating */){
                         for (int i = 1; i < 5; i++) {
                             int foo = Integer.parseInt(campo[i]);
                             int temp = foo*(-1);
                            // if(controllo(Integer.parseInt(campo[1]),Integer.parseInt(campo[3]),Integer.parseInt(campo[2]),Integer.parseInt(campo[4]),r1,r2/*,v */)==true)
-                            //    r+=temp+";";
+                              r+=temp+";";
                           //  risposta = r.getBytes();
 
                         }//}
@@ -90,26 +91,25 @@ public class clientThread extends Thread {
                      * 
                      * }
                      */
-                    String[] crisp = in.readLine().split(";");
-                    if(crisp[0].equals(5))
-                    _socket.sendMessage(r);
-                    else{
+                    //String[] crisp = in.readLine().split(";");
+                  //  if(campo[0].equals("5"))
+                   
+                    
+                    System.out.println("OK");
+
                    // System.out.println(_socket.id + " ha ricevuto : " + str);
-                    MySocket destinatario = inst.findDifferentSocketById(_socket.id); // ritorna la socket dell'altro player
-                    if (destinatario != null/*&& velocita<100*/)
-                        destinatario.sendMessage(r); // richiamo il metodo di MySocket che scrive sul buffer
-                    }
+                   /*  MySocket destinatario = inst.findDifferentSocketById(_socket.id); // ritorna la socket dell'altro player
+                    if (destinatario != null/*&& velocita<100*/
+                       // destinatario.sendMessage(r); // richiamo il metodo di MySocket che scrive sul buffer
+                    
                 } catch (IOException e) {
                     // connessione chiusa
                     break; // e vado a rimuovere la socket
                 }
             }
 
-            inst.removeSocket(_socket);
-        } catch (NumberFormatException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+           // inst.removeSocket(_socket);
+       
 
     }
 static public  boolean   controllo(int xc1,int xc2,int yc1,int yc2,int r1,int r2,int v){

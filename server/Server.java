@@ -31,6 +31,8 @@ public class Server  extends Thread{
 
             } catch (IOException e) {
                 //errore ... fa niente, ritorno ad aspettare
+                e.printStackTrace();
+
             }
         }
     
