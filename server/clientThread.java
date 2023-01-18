@@ -112,7 +112,7 @@ public class clientThread extends Thread {
         }
 
     }
-static  public controllo(int xc1,int xc2,int yc1,int yc2,int r1,int r2,int v){
+static public  boolean   controllo(int xc1,int xc2,int yc1,int yc2,int r1,int r2,int v){
 boolean temp=false;
 if(Math.sqrt(Math.pow((xc2-xc1), 2)+(Math.pow((yc1+yc2),2)))==r1+r2/*||v<200 */)//collisione
 temp=true;
