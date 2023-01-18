@@ -51,6 +51,7 @@ public class LogicaStand : MonoBehaviour
         Int32 bytes = networkStream.Read(buffer, 0, buffer.Length);
         responseData = System.Text.Encoding.UTF8.GetString(buffer, 0, bytes);
         campi = responseData.Split(";");
+        SenStandard.Start();
         switch (campi[0])
         {
             case "0":
