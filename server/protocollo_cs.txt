@@ -4,7 +4,7 @@ c ---> s
    flag(0-1);xracchettina;yracchettina;xpallina;ypallina;velocità
 
 
-               // risposta 0= risp normale solo coordinate
+               //risposta 0= risp normale solo coordinate
                //risosta 1= risp evento coordinate racchettina(x;y) + pallina(x;y)
 
 

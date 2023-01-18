@@ -63,9 +63,9 @@ public class menu : MonoBehaviour
             //Debug.Log(_port.ToString());
             //Debug.Log(port);
 
-            tcpClient = new TcpClient("172.16.102.120", PORT );
+            tcpClient = new TcpClient("192.168.1.85", PORT );
             //questa è la richiesta 
-            string messagge = "5;172.16.102.120;8080;request;\r\n";
+            string messagge = "5;192.168.1.85;8080;request;\r\n";
             Byte[] buffer = Encoding.UTF8.GetBytes(messagge);
 
 
@@ -85,10 +85,10 @@ public class menu : MonoBehaviour
             Debug.Log("CLIENT RECEIVED: " + responseData);
 
 
+            //5;192.168.1.85;8080;confirmed;
 
-            if (responseData != null && responseData == "5;172.16.102.120;8080;confirmed")
+            if (!responseData.Equals("5;192.168.1.85;8080;confirmed;"))
             {
-
                 connection_switch_color.GetComponent<Image>().color = new Color(0, 255, 0, 255);
                 IsConnected = true;
             }
