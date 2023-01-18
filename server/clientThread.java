@@ -56,7 +56,7 @@ public class clientThread extends Thread {
                         for (int i = 1; i < 5; i++) {
                             int foo = Integer.parseInt(campo[i]);
                             int temp = foo*(-1);
-                            if(controllo(campo[1],campo[3],campo[2],campo[4],r1,r2/*,v */)==true)
+                            if(controllo(Integer.parseInt(campo[1]),Integer.parseInt(campo[3]),Integer.parseInt(campo[2]),Integer.parseInt(campo[4]),r1,r2/*,v */)==true)
                             r+=temp+";";
                           //  risposta = r.getBytes();
 
