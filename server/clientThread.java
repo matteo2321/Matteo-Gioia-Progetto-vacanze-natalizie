@@ -21,7 +21,7 @@ public class clientThread extends Thread {
        // Byte[] risposta = new Byte[50];
         String r="";
            
-            //shared inst = shared.getInstance();
+            shared inst = shared.getInstance();
             while (true) {
                 try {
                     //Byte[] messagge=Byte[512];
@@ -101,8 +101,16 @@ public class clientThread extends Thread {
                    /*  MySocket destinatario = inst.findDifferentSocketById(_socket.id); // ritorna la socket dell'altro player
                     if (destinatario != null/*&& velocita<100*/
                        // destinatario.sendMessage(r); // richiamo il metodo di MySocket che scrive sul buffer
-                    
-                } catch (IOException e) {
+                 
+                    if(campo[0].equals("5"))
+                    _socket.sendMessage(r);
+                    else{
+                   // System.out.println(_socket.id + " ha ricevuto : " + str);
+                    MySocket destinatario = inst.findDifferentSocketById(_socket.id); // ritorna la socket dell'altro player
+                    if (destinatario != null/*&& velocita<100*/)
+                        destinatario.sendMessage(r); // richiamo il metodo di MySocket che scrive sul buffer
+                   
+                }} catch (IOException e) {
                     // connessione chiusa
                     break; // e vado a rimuovere la socket
                 }
