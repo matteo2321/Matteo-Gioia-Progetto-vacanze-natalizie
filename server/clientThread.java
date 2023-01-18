@@ -13,19 +13,19 @@ public class clientThread extends Thread {
     public clientThread(MySocket socket) throws IOException {
         _socket = socket;
         //in = new BufferedReader(new InputStreamReader(_socket.socket.getInputStream()));
+        DataInputStream inFromClient = new DataInputStream(_socket.socket.getInputStream());
     }
 
     @Override
     public void run() {
        // Byte[] risposta = new Byte[50];
         String r="";
-        try (DataInputStream inFromClient = new DataInputStream(_socket.socket.getInputStream())) {
+        try{
             shared inst = shared.getInstance();
             while (true) {
                 try {
-                    byte[] message = new byte[256];
-                    //inFromClient.read(message, 0, message.length); 
-                    message=inFromClient.readNBytes(256);
+                    Byte[] messagge=Byte[256];
+                    inFromClient.read(message, 0, message.length); 
                     System.out.println(message);
                     //String s = in.readLine();
                     //QUI C'E' IL PROBLEMA 
@@ -56,8 +56,8 @@ public class clientThread extends Thread {
                         for (int i = 1; i < 5; i++) {
                             int foo = Integer.parseInt(campo[i]);
                             int temp = foo*(-1);
-                            if(controllo(campo[1],campo[3],campo[2],campo[4],r1,r2/*,v */)==true)
-                            r+=temp+";";
+                            //if(controllo(campo[1],campo[3],campo[2],campo[4],r1,r2/*,v */)==true)
+                            //    r+=temp+";";
                           //  risposta = r.getBytes();
 
                         }//}
@@ -114,7 +114,7 @@ public class clientThread extends Thread {
     }
 static public  boolean   controllo(int xc1,int xc2,int yc1,int yc2,int r1,int r2,int v){
 boolean temp=false;
-if(Math.sqrt(Math.pow((xc2-xc1), 2)+(Math.pow((yc1+yc2),2)))==r1+r2/*||v<200 */)//collisione
+if(Math.sqrt(Math.pow((xc2-xc1), 2)+(Math.pow((yc1+yc2),2)))<=r1+r2/*||v<200 */)//collisione
 temp=true;
 
 return temp;

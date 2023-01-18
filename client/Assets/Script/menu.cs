@@ -63,7 +63,7 @@ public class menu : MonoBehaviour
             //Debug.Log(_port.ToString());
             //Debug.Log(port);
 
-            tcpClient = new TcpClient("192.168.1.85", PORT);
+            tcpClient = new TcpClient("172.16.102.119", PORT);
             string messagge = "5;ip;port;";//questa è la richiesta 
             Byte[] buffer = Encoding.UTF8.GetBytes(messagge);
 
@@ -83,7 +83,7 @@ public class menu : MonoBehaviour
 
 
 
-            if (responseData != null && responseData == "6;ip;port;")
+            if (responseData != null && responseData == "5;ip;port;")
             {
 
                 connection_switch_color.GetComponent<Image>().color = new Color(0, 255, 0, 255);
