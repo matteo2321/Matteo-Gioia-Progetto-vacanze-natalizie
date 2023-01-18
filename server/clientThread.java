@@ -12,8 +12,8 @@ public class clientThread extends Thread {
 
     public clientThread(MySocket socket) throws IOException {
         _socket = socket;
-        //in = new BufferedReader(new InputStreamReader(_socket.socket.getInputStream()));
-        DataInputStream inFromClient = new DataInputStream(_socket.socket.getInputStream());
+       in = new BufferedReader(new InputStreamReader(_socket.socket.getInputStream()));
+      //  DataInputStream inFromClient = new DataInputStream(_socket.socket.getInputStream());
     }
 
     @Override
@@ -24,18 +24,18 @@ public class clientThread extends Thread {
             shared inst = shared.getInstance();
             while (true) {
                 try {
-                    Byte[] messagge=Byte[256];
-                    inFromClient.read(message, 0, message.length); 
-                    System.out.println(message);
-                    //String s = in.readLine();
+                    //Byte[] messagge=Byte[512];
+                    //inFromClient.read(message, 0, message.length); 
+                    String s = in.readLine();
+                    System.out.println(s);
                     //QUI C'E' IL PROBLEMA 
-                    String s =new String(message, StandardCharsets.UTF_8);
+                    //String s = new String(message, StandardCharsets.UTF_8);
 
                     String[] campo = s.split(";");
-                    if(campo[0].equals(5))
+                    if(campo[0].equals(5)&&campo[3].equals("request"))
                     {
                         r+="5;";
-                        r+="host-->"+_socket.getip()+":"+_socket.getport()+"-->confirmed";
+                        r+=_socket.getip()+";"+_socket.getport()+";confirmed";
                         //byte[] byteArrray = inputString.getBytes();
                        // risposta = r.getBytes();
                     }
@@ -56,7 +56,7 @@ public class clientThread extends Thread {
                         for (int i = 1; i < 5; i++) {
                             int foo = Integer.parseInt(campo[i]);
                             int temp = foo*(-1);
-                            //if(controllo(campo[1],campo[3],campo[2],campo[4],r1,r2/*,v */)==true)
+                           // if(controllo(Integer.parseInt(campo[1]),Integer.parseInt(campo[3]),Integer.parseInt(campo[2]),Integer.parseInt(campo[4]),r1,r2/*,v */)==true)
                             //    r+=temp+";";
                           //  risposta = r.getBytes();
 
